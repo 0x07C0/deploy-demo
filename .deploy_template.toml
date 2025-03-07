@@ -1,0 +1,5 @@
+[deploy]
+gcp_region = "europe-central2"
+gcp_project_id = "project-a-415508"
+gcp_artifact_repo_name = "deploy-demo"
+docker_image_name = "deploy-demo"
