@@ -1,0 +1,8 @@
+# project-a-415508
+FROM ubuntu:latest
+
+RUN apt update && apt install -y python3-full
+
+RUN touch container2
+
+CMD ["python3", "-m", "http.server"]

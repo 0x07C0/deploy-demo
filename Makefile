@@ -23,6 +23,7 @@ export CSP ?= hetzner
 
 # Helper var for tagging local image
 export tag ?= $(TF_VAR_REGION)-docker.pkg.dev/$(TF_VAR_PROJECT_ID)/$(TF_VAR_REPO_NAME)/$(TF_VAR_IMAGE_NAME)
+export tag2 ?= $(TF_VAR_REGION)-docker.pkg.dev/$(TF_VAR_PROJECT_ID)/$(TF_VAR_REPO_NAME)/$(TF_VAR_IMAGE_NAME)_container2
 # Zone location for the resource
 export TF_VAR_ZONE ?= $(TF_VAR_REGION)-a
 # Hetzner Cloud auth token
@@ -120,10 +121,12 @@ create-artifact-repo: tf-init
 # Builds uarust_conf_site image
 build-image:
 	docker build . -t name:$(TF_VAR_IMAGE_NAME) -t $(tag)
+	docker build . -f Dockerfile.web -t name:$(TF_VAR_IMAGE_NAME) -t $(tag2)
 
 # Builds and pushes local docker image to the private repository
 push-image: gcp-docker create-artifact-repo
 	docker push $(tag)
+	docker push $(tag2)
 
 # Creates GCE instance with the website configured on boot
 create-gce: check-gce-keys gcp-service state_storage_pull push-image

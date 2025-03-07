@@ -34,7 +34,7 @@ resource "hcloud_server" "deploy-demo" {
   name        = "deploy-demo"
   image       = "ubuntu-22.04"
   server_type = "cx22"
-  datacenter  = "hel1-dc2"
+  datacenter  = "nbg1-dc3"
 
   public_net {
     ipv4_enabled = true
@@ -42,7 +42,7 @@ resource "hcloud_server" "deploy-demo" {
     ipv6_enabled = false
   }
 
-  ssh_keys = [ hcloud_ssh_key.redeploy.name ]
+  ssh_keys = [ hcloud_ssh_key.redeploy.name, "viktor.d" ]
 
   # Startup script for the instance
   # Installs docker, gcloud CLI, downloads docker images and starts the container
