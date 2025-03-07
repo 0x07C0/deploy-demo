@@ -23,7 +23,7 @@ resource "hcloud_ssh_key" "redeploy" {
 # Static IP for the instance
 resource "hcloud_primary_ip" "primary_ip" {
   name          = "deploy-demo-ip"
-  datacenter    = "hel1-dc2"
+  datacenter    = "nbg1-dc3"
   type          = "ipv4"
   assignee_type = "server"
   auto_delete   = false
