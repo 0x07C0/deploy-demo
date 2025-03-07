@@ -12,9 +12,7 @@ write_files:
   content: |
     # Configure env for redeploy script
     echo "DOCKER_IMAGE=${location}-docker.pkg.dev/${project_id}/${repo_name}/${image_name}" >> /etc/environment
-    echo "DOCKER_IMAGE_CONTAINER=${location}-docker.pkg.dev/${project_id}/${repo_name}/${image_name}_container2" >> /etc/environment
     echo "DOCKER_IMAGE_NAME=${image_name}" >> /etc/environment
-    echo "DOCKER_IMAGE_NAME_CONTAINER=${image_name}" >> /etc/environment
 
     # Install docker
     apt update
