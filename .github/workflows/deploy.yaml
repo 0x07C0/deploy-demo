@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: '${{ secrets.SECRET_GCP_CREDENTIALS }}'
+
+    - name: Copy credentials json to keys
+      run: |
+        cp ${GOOGLE_APPLICATION_CREDENTIALS} key/-service_account.json
+        echo "${{ secrets.SECRET_RSA_PRIVATE_KEY }}" > key/-rsa_ssh_key
+        echo "${{ secrets.SECRET_RSA_PUBLIC_KEY }}" > key/-rsa_ssh_key.pub
+
+    - name: 'Build the image, push and deploy'
+      run: 'make deploy'
+      env:
+        SECRET_STATE_ARCHIVE_KEY: ${{ secrets.SECRET_STATE_ARCHIVE_KEY }}
+        SECRET_CSP_HETZNER: ${{ secrets.SECRET_CSP_HETZNER }}
+        SECRET_AWS_ACCESS_KEY_ID: ${{ secrets.SECRET_AWS_ACCESS_KEY_ID }}
+        SECRET_AWS_ACCESS_KEY: ${{ secrets.SECRET_AWS_ACCESS_KEY }}

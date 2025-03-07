@@ -1,0 +1,8 @@
+/deploy/*/.*
+/deploy/*/*.tfstate*
+
+/key/*
+!/key/*.md
+!/key/pack.sh
+gha-creds-*.json
+-*
